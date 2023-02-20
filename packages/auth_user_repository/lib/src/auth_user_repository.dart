@@ -9,8 +9,8 @@ class SearchUserRepository {
 
     try {
       final user = await _httpClient.post(apiUrl, data: {
-        "email": "general@wsr.ru",
-        "password": "general"
+        "email": "",
+        "password": ""
       });
 
       return (user.data as List).map((json) => UserModel.fromJson(json)).toList();

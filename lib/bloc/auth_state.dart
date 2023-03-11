@@ -1,7 +1,7 @@
 part of 'auth_bloc.dart';
 
 class UserState {
-  final List<UserModel> user;
+  final UserModel? user;
 
   UserState({this.user});
 }

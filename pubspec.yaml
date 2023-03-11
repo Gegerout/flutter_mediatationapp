@@ -38,6 +38,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   flutter_bloc: ^8.1.1
+  dartz: ^0.10.0
+  bloc_concurrency: ^0.2.0
+  stream_transform: ^2.0.0
+  auth_user_repository:
+    path: packages/auth_user_repository
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

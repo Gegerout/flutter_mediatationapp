@@ -1,8 +1,11 @@
+import 'package:auth_user_repository/auth_user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:meditation_app/onboarding.dart';
-import 'package:meditation_app/signin.dart';
-import 'package:meditation_app/signup.dart';
+import 'package:meditation_app/bloc/auth_bloc.dart';
+import 'package:meditation_app/screens/onboarding.dart';
+import 'package:meditation_app/screens/signin.dart';
+import 'package:meditation_app/screens/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,15 +17,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: const OnboardingScreen(),
-      getPages: [
-        GetPage(name: '/', page: () => const SignInScreen()),
-        GetPage(name: "/signup", page: () => const SignUpScreen()),
-        GetPage(name: "/signin", page: () => const SignInScreen())
-      ],
+    return RepositoryProvider(
+      create: (context) => AuthUserRepository(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => AuthBloc(
+              authUserRepository: RepositoryProvider.of<AuthUserRepository>(context)
+          )
+          )
+        ],
+        child: MaterialApp(
+          home: Scaffold(
+            body: Builder(
+              builder: (context) => const SignInScreen(),
+            )
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class GreenButton extends StatelessWidget {
-  const GreenButton({Key? key, required this.width, required this.height, required this.text}) : super(key: key);
+  const GreenButton({Key? key, required this.width, required this.height, required this.text, this.onPressed}) : super(key: key);
 
   final double width;
   final double height;
   final String text;
+  final Function? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+        onTap: () => onPressed,
         child: Container(
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * width,

@@ -1,22 +1,27 @@
 import 'package:auth_user_repository/auth_user_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:dartz/dartz.dart';
 
-class SearchUserRepository {
+import '../core/failures.dart';
+
+class AuthUserRepository {
   final _httpClient = Dio();
 
-  Future<List<UserModel>> onUserAuth(String query) async {
+  Future<Either<Failure, UserModel>?> onUserAuth(String email, String password) async {
     const apiUrl = 'http://mskko2021.mad.hakta.pro/api/user/login';
 
     try {
       final user = await _httpClient.post(apiUrl, data: {
-        "email": "general@wsr.ru",
-        "password": "general"
+        "email": email,
+        "password": password
       });
 
-      return (user.data as List).map((json) => UserModel.fromJson(json)).toList();
+      print(user);
+
+      return Right(UserModel.fromJson(user.data));
     } catch (e) {
       print('ERROR $e');
-      return [];
+      return null;
     }
   }
 }

@@ -7,7 +7,7 @@ import '../core/failures.dart';
 class AuthUserRepository {
   final _httpClient = Dio();
 
-  Future<UserModel?> onUserAuth(String email, String password) async {
+  Future<Either<Failure, UserModel>?> onUserAuth(String email, String password) async {
     const apiUrl = 'http://mskko2021.mad.hakta.pro/api/user/login';
 
     try {
@@ -18,7 +18,7 @@ class AuthUserRepository {
 
       print(user);
 
-      return UserModel.fromJson(user.data);
+      return Right(UserModel.fromJson(user.data));
     } catch (e) {
       print('ERROR $e');
       return null;
